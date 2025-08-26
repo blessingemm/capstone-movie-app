@@ -6,7 +6,7 @@ import SearchBox from "./SearchBox";
 function NavBar(){
   const [isOpen, setIsOpen] = useState(false);
   return(
-      <nav className="w-full bg-[#1F1B2E] px-6 py-3 sticky shadow-md">
+      <nav className="sticky top-0 z-50 w-full bg-[#1F1B2E] px-6 py-3 shadow-md">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <div>
             <img src={logo} alt="Logo" className="h-10 w-auto" />
@@ -20,7 +20,7 @@ function NavBar(){
           </div>
 
           <div className="hidden md:flex space-x-4">
-            <button className="px-4 py-1 rounded-xl bg-[#2C2C3B] font-semibold hover:bg-[#FF4DA6] transition">Sign In</button>
+            <button className="px-4 py-1 rounded-xl bg-[#2A243D] font-semibold hover:bg-[#FF4DA6] transition">Sign In</button>
             <button className="px-4 py-1 rounded-xl border border-[#FF4DA6] font-semibold hover:bg-[#FF4DA6] hover:text-black transition">Sign Up</button>
           </div>
 

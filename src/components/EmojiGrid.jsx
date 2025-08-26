@@ -1,4 +1,3 @@
-// src/components/EmojiGrid.jsx
 import happyEmoji from "../assets/emojis/happy.png";
 import sadEmoji from "../assets/emojis/sad.png";
 import angryEmoji from "../assets/emojis/angry.png";

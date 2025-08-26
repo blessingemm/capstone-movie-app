@@ -3,10 +3,11 @@ import { useEffect, useRef, useState } from "react";
 export default function MovieGrid({ selectedMood, apiKey }) {
   const [movies, setMovies] = useState([]);
   const [fadeIn, setFadeIn] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1); // tracks pages fetched
-  const [totalPages, setTotalPages] = useState(2); // max 2 pages for OMDb
-  const gridRef = useRef();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(2);
   const [fetchedDefault, setFetchedDefault] = useState(false);
+
+  const gridRef = useRef();
 
   const fetchMovies = async (query, page = 1) => {
     try {
@@ -14,9 +15,11 @@ export default function MovieGrid({ selectedMood, apiKey }) {
         `https://www.omdbapi.com/?apikey=${apiKey}&s=${query}&type=movie&page=${page}`
       );
       const data = await response.json();
+
       if (data.Response === "True") {
         setTotalPages(Math.ceil(data.totalResults / 10));
         return data.Search.map((movie) => ({
+          id: movie.imdbID,
           title: movie.Title,
           year: movie.Year,
           poster:
@@ -24,7 +27,9 @@ export default function MovieGrid({ selectedMood, apiKey }) {
               ? movie.Poster
               : "/assets/posters/placeholder.jpg",
         }));
-      } else return [];
+      } else {
+        return [];
+      }
     } catch (err) {
       console.error("Error fetching movies:", err);
       return [];
@@ -40,25 +45,19 @@ export default function MovieGrid({ selectedMood, apiKey }) {
 
   const loadMoodMovies = async (page = 1) => {
     if (!selectedMood) return;
-    setFadeIn(false);
+
     const moodMovies = await fetchMovies(selectedMood, page);
     setMovies((prev) => (page === 1 ? moodMovies : [...prev, ...moodMovies]));
+
+    setFadeIn(false);
     setTimeout(() => setFadeIn(true), 50);
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting && !fetchedDefault && !selectedMood) {
-          loadDefaultMovies();
-        }
-      },
-      { threshold: 0.3 }
-    );
-
-    if (gridRef.current) observer.observe(gridRef.current);
-    return () => observer.disconnect();
-  }, [fetchedDefault, selectedMood, apiKey]);
+    if (!selectedMood && !fetchedDefault) {
+      loadDefaultMovies();
+    }
+  }, [selectedMood, fetchedDefault]);
 
   useEffect(() => {
     if (selectedMood) {
@@ -80,7 +79,7 @@ export default function MovieGrid({ selectedMood, apiKey }) {
       ref={gridRef}
       className="w-full py-12 flex flex-col items-center px-6 bg-[#1F1B2E]"
     >
-      <h2 className="text-xl md:text-xl font-bold text-white self-start px-15 mb-6">
+      <h2 className="text-xl font-bold text-white self-start px-18 mb-6">
         SERVING <span className="text-[#FF4DA6]">FEEL</span>
       </h2>
 
@@ -93,8 +92,8 @@ export default function MovieGrid({ selectedMood, apiKey }) {
               fadeIn ? "opacity-100" : "opacity-0"
             } max-w-[1200px] mx-auto`}
           >
-            {movies.map((movie, index) => (
-              <div key={index} className="flex flex-col items-center p-2">
+            {movies.map((movie) => (
+              <div key={movie.id} className="flex flex-col items-center p-2">
                 <div className="w-full aspect-[2/3] overflow-hidden flex items-center justify-center">
                   <img
                     src={movie.poster}
@@ -117,7 +116,7 @@ export default function MovieGrid({ selectedMood, apiKey }) {
           {currentPage < totalPages && (
             <button
               onClick={handleLoadMore}
-              className="mt-25 px-6 py-3 bg-[#FF4DA6] text-white rounded-lg hover:bg-pink-600 transition-colors"
+              className="mt-8 px-6 py-2 bg-[#FF4DA6] text-white rounded-lg hover:bg-pink-600 transition-colors"
             >
               Load More
             </button>

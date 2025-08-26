@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 
-export default function WhatsPoppin() {
+function WhatsPoppin() {
   const [movie, setMovie] = useState(null);
   const [trailerKey, setTrailerKey] = useState(null);
 
@@ -88,3 +88,4 @@ export default function WhatsPoppin() {
 </div>
   );
 }
+export default WhatsPoppin;

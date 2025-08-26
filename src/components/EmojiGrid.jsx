@@ -26,11 +26,11 @@ const emojis = [
   { src: heartEmoji, label: "heart" },
 ];
 
-export default function EmojiGrid({ onEmojiClick }) {
+function EmojiGrid({ onEmojiClick }) {
   return (
     <div className="w-full py-12 flex flex-col items-center">
       <h2 className="text-xl md:text-3xl font-bold text-white mb-2 mt-5">
-        Mood check → Let’s match the energy
+        Mood check &rarr; Let’s match the energy
       </h2>
       <p className="text-sm md:text-base mb-6">
         Feelin’ something? Tap your vibe and get the bangers.
@@ -51,3 +51,4 @@ export default function EmojiGrid({ onEmojiClick }) {
     </div>
   );
 }
+export default EmojiGrid;

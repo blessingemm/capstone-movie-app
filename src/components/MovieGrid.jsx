@@ -1,76 +1,75 @@
 import { useEffect, useRef, useState } from "react";
 
-export default function MovieGrid({ selectedMood, apiKey }) {
+function MovieGrid({ selectedMood, apiKey }) {
   const [movies, setMovies] = useState([]);
   const [fadeIn, setFadeIn] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(2);
-  const [fetchedDefault, setFetchedDefault] = useState(false);
+  const [page, setPage] = useState(1);
+  const [maxPages, setMaxPages] = useState(2);
+  const [hasLoadedDefault, setHasLoadedDefault] = useState(false);
 
   const gridRef = useRef();
 
-  const fetchMovies = async (query, page = 1) => {
+  const fetchMovies = async (query, pageNum = 1) => {
     try {
-      const response = await fetch(
-        `https://www.omdbapi.com/?apikey=${apiKey}&s=${query}&type=movie&page=${page}`
+      const res = await fetch(
+        `https://www.omdbapi.com/?apikey=${apiKey}&s=${query}&type=movie&page=${pageNum}`
       );
-      const data = await response.json();
+      const data = await res.json();
 
       if (data.Response === "True") {
-        setTotalPages(Math.ceil(data.totalResults / 10));
-        return data.Search.map((movie) => ({
-          id: movie.imdbID,
-          title: movie.Title,
-          year: movie.Year,
+        setMaxPages(Math.ceil(data.totalResults / 10));
+        return data.Search.map((m) => ({
+          id: m.imdbID,
+          title: m.Title,
+          year: m.Year,
           poster:
-            movie.Poster !== "N/A"
-              ? movie.Poster
-              : "/assets/posters/placeholder.jpg",
+            m.Poster !== "N/A" ? m.Poster : "/assets/posters/placeholder.jpg",
         }));
-      } else {
-        return [];
       }
+
+      return [];
     } catch (err) {
-      console.error("Error fetching movies:", err);
+      console.error("fetchMovies error:", err);
       return [];
     }
   };
 
-  const loadDefaultMovies = async () => {
-    const moviesPage1 = await fetchMovies("movie", 1);
-    setMovies(moviesPage1);
-    setFetchedDefault(true);
-    setFadeIn(true);
+  const loadDefault = async () => {
+    const firstBatch = await fetchMovies("movie", 1);
+    setMovies(firstBatch)
+    setHasLoadedDefault(true)
+    setFadeIn(true)
   };
 
-  const loadMoodMovies = async (page = 1) => {
+  const loadByMood = async (pageNum = 1) => {
     if (!selectedMood) return;
+    const batch = await fetchMovies(selectedMood, pageNum);
 
-    const moodMovies = await fetchMovies(selectedMood, page);
-    setMovies((prev) => (page === 1 ? moodMovies : [...prev, ...moodMovies]));
+    setMovies((prev) => (pageNum === 1 ? batch : [...prev, ...batch]));
 
+    
     setFadeIn(false);
     setTimeout(() => setFadeIn(true), 50);
   };
 
   useEffect(() => {
-    if (!selectedMood && !fetchedDefault) {
-      loadDefaultMovies();
+    if (!selectedMood && !hasLoadedDefault) {
+      loadDefault()
     }
-  }, [selectedMood, fetchedDefault]);
+  }, [selectedMood, hasLoadedDefault]);
 
   useEffect(() => {
     if (selectedMood) {
-      setCurrentPage(1);
-      loadMoodMovies(1);
+      setPage(1)
+      loadByMood(1)
     }
   }, [selectedMood, apiKey]);
 
   const handleLoadMore = () => {
-    if (currentPage < totalPages) {
-      const nextPage = currentPage + 1;
-      setCurrentPage(nextPage);
-      loadMoodMovies(nextPage);
+    if (page < maxPages) {
+      const next = page + 1
+      setPage(next)
+      loadByMood(next)
     }
   };
 
@@ -79,7 +78,7 @@ export default function MovieGrid({ selectedMood, apiKey }) {
       ref={gridRef}
       className="w-full py-12 flex flex-col items-center px-6 bg-[#1F1B2E]"
     >
-      <h2 className="text-xl font-bold text-white self-start px-18 mb-6">
+      <h2 className="text-xl font-bold text-white self-start mb-6 px-15">
         SERVING <span className="text-[#FF4DA6]">FEEL</span>
       </h2>
 
@@ -94,7 +93,7 @@ export default function MovieGrid({ selectedMood, apiKey }) {
           >
             {movies.map((movie) => (
               <div key={movie.id} className="flex flex-col items-center p-2">
-                <div className="w-full aspect-[2/3] overflow-hidden flex items-center justify-center">
+                <div className="w-full aspect-[2/3] overflow-hidden flex items-center justify-center rounded-xl">
                   <img
                     src={movie.poster}
                     alt={movie.title}
@@ -105,7 +104,7 @@ export default function MovieGrid({ selectedMood, apiKey }) {
                   <h3 className="text-xs md:text-sm font-semibold text-white truncate">
                     {movie.title}
                   </h3>
-                  <p className="text-xs md:text-sm mt-1 text-[#FF4DA6]">
+                  <p className="text-xs md:text-sm text-[#FF4DA6]">
                     {movie.year}
                   </p>
                 </div>
@@ -113,7 +112,7 @@ export default function MovieGrid({ selectedMood, apiKey }) {
             ))}
           </div>
 
-          {currentPage < totalPages && (
+          {page < maxPages && (
             <button
               onClick={handleLoadMore}
               className="mt-8 px-6 py-2 bg-[#FF4DA6] text-white rounded-lg hover:bg-pink-600 transition-colors"
@@ -126,3 +125,4 @@ export default function MovieGrid({ selectedMood, apiKey }) {
     </div>
   );
 }
+export default MovieGrid;

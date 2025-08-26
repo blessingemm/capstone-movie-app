@@ -1,36 +1,36 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { X } from "lucide-react";
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
-const CinemaFit = () => {
+function CinemaFit() {
   const [movies, setMovies] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
-  const [page, setPage] = useState(1); 
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
-const fetchMovies = async (pageNum) => {
-  try {
-    setLoading(true);
-    const res = await fetch(
-      `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}&page=${pageNum}`
-    );
-    const data = await res.json();
-    setMovies((prev) => {
-    const combined = [...prev, ...data.results];
-    const unique = Array.from(new Map(combined.map((m) => [m.id, m])).values());
-    return unique;
-  });
+  const fetchMovies = async (pageNum) => {
+    try {
+      setLoading(true);
+      const res = await fetch(
+        `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}&page=${pageNum}`
+      );
+      const data = await res.json();
 
-  } catch (err) {
-    console.error("Error fetching movies:", err);
-  } finally {
-    setLoading(false);
-  }
-};
+      setMovies((prev) => {
+        const merged = [...prev, ...data.results];
+        return Array.from(new Map(merged.map((m) => [m.id, m])).values());
+      });
+    } catch (err) {
+      console.error("fetchMovies error:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-useEffect(() => {
-  fetchMovies(page);
+  useEffect(() => {
+    fetchMovies(page);
   }, [page]);
 
   const fetchMovieDetails = async (movie) => {
@@ -39,6 +39,7 @@ useEffect(() => {
         `https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${API_KEY}&language=en-US`
       );
       const data = await res.json();
+
       const trailer = data.results.find((vid) => vid.type === "Trailer");
 
       setSelectedMovie({
@@ -48,7 +49,7 @@ useEffect(() => {
 
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
-      console.error(err);
+      console.error("fetchMovieDetails error:", err);
     }
   };
 
@@ -57,8 +58,16 @@ useEffect(() => {
       <h1 className="text-3xl font-bold text-white self-start mb-15">
         Big Screen <span className="text-[#FF4DA6]">Vibez</span>
       </h1>
+
       {selectedMovie && (
-        <div className="bg-gradient-to-br from-[#1F1B2E] to-[#2A243D] text-white p-6 rounded-xl shadow-lg shadow-black/70 max-w-6xl mx-auto mt-10 border border-[#2A253D] mb-10 flex flex-col md:flex-row gap-6">
+        <div className="relative bg-gradient-to-br from-[#1F1B2E] to-[#2A243D] text-white p-6 rounded-xl shadow-lg shadow-black/70 max-w-6xl mx-auto mt-10 border border-[#2A253D] mb-10 flex flex-col md:flex-row gap-6">
+          <button
+            onClick={() => setSelectedMovie(null)}
+            className="absolute top-4 right-4 text-white hover:text-red-400 transition"
+          >
+            <X size={26} />
+          </button>
+
           <div className="flex flex-col items-center w-full md:w-[300px] flex-shrink-0">
             <img
               src={`${IMAGE_BASE_URL}${selectedMovie.poster_path}`}
@@ -127,6 +136,6 @@ useEffect(() => {
       </div>
     </div>
   );
-};
+}
 
 export default CinemaFit;

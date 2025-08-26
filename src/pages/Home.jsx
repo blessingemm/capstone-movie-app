@@ -3,8 +3,9 @@ import Banner from "../components/Banner";
 import EmojiGrid from "../components/EmojiGrid";
 import MovieGrid from "../components/MovieGrid";
 import WhatsPoppin from "../components/SpotlightCard";
+import FitCheckCenter from "../components/FitCheckCenter";
 
-export default function Home() {
+function Home() {
   const [selectedMood, setSelectedMood] = useState(null);
   const [movies, setMovies] = useState([]); 
 
@@ -22,6 +23,9 @@ export default function Home() {
         apiKey={import.meta.env.VITE_OMDB_API_KEY}
       />
       <WhatsPoppin />
+      <FitCheckCenter />
     </div>
   );
 }
+
+export default Home;

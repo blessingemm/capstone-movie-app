@@ -20,8 +20,8 @@ function NavBar(){
           </div>
 
           <div className="hidden md:flex space-x-4">
-            <button className="px-4 py-1 rounded-xl bg-[#2A243D] font-semibold hover:bg-[#FF4DA6] transition">Sign In</button>
-            <button className="px-4 py-1 rounded-xl border border-[#FF4DA6] font-semibold hover:bg-[#FF4DA6] hover:text-black transition">Sign Up</button>
+            <button className="text-sm px-4 py-2 rounded-lg bg-[#2A243D] font-semibold hover:bg-[#FF4DA6] transition">Log me in</button>
+            <button className="text-sm px-4 py-2 rounded-lg border border-[#FF4DA6] font-semibold hover:bg-[#FF4DA6] hover:text-black transition">Join the squad</button>
           </div>
 
           <button onClick={() => setIsOpen(!isOpen)} 

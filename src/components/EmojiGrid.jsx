@@ -41,8 +41,7 @@ function EmojiGrid({ onEmojiClick }) {
           <div
             key={index}
             className="flex flex-col items-center justify-center bg-[#2C2C3B] p-2 rounded-xl shadow-md cursor-pointer hover:scale-105 transition-transform"
-            onClick={() => onEmojiClick(emoji.label)}
-          >
+            onClick={() => onEmojiClick(emoji.label)}>
             <img src={emoji.src} alt={emoji.label} className="w-12 h-12" />
             <p className="mt-1 text-xs text-gray-300">{emoji.label}</p>
           </div>

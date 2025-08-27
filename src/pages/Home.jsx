@@ -4,6 +4,7 @@ import EmojiGrid from "../components/EmojiGrid";
 import MovieGrid from "../components/MovieGrid";
 import WhatsPoppin from "../components/SpotlightCard";
 import FitCheckCenter from "../components/FitCheckCenter";
+import CelebGrid from "../components/CelebGrid";
 
 function Home() {
   const [selectedMood, setSelectedMood] = useState(null);
@@ -24,6 +25,7 @@ function Home() {
       />
       <WhatsPoppin />
       <FitCheckCenter />
+      <CelebGrid />
     </div>
   );
 }

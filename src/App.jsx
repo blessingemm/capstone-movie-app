@@ -6,6 +6,7 @@ import CelebTea from './pages/CelebTea'
 import NavBar from './components/NavBar'
 import CinemaFit from './pages/CinemaFit'
 import WatchList from './pages/Watchlist'
+import MovieAppFooter from './components/Footer'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/celeb-tea" element={<CelebTea />} />
         <Route path="/watch-list" element={<WatchList />} />
       </Routes>
+      <MovieAppFooter />
     </Router>  
   )
 }

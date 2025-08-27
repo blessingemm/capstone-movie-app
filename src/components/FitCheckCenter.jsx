@@ -52,14 +52,12 @@ function FitCheckCenter() {
       <div
         ref={scrollTrack}
         className="flex space-x-6 overflow-x-auto px-6 no-scrollbar snap-x snap-mandatory"
-        style={{ scrollBehavior: "smooth" }}
-      >
+        style={{ scrollBehavior: "smooth" }}>
         {clips.map((clip, i) => (
           <div
             key={i}
             onClick={() => setActiveClip(clip.id.videoId)}
-            className="relative flex-none w-[360px] aspect-video snap-center rounded-2xl overflow-hidden shadow-xl bg-black cursor-pointer hover:scale-105 transition-transform group"
-          >
+            className="relative flex-none w-[360px] aspect-video snap-center rounded-2xl overflow-hidden shadow-xl bg-black cursor-pointer hover:scale-105 transition-transform group">
             <img
               src={clip.snippet.thumbnails.high.url}
               alt={clip.snippet.title}
@@ -80,8 +78,7 @@ function FitCheckCenter() {
           <div className="relative w-full max-w-3xl bg-black rounded-2xl shadow-2xl">
             <button
               onClick={() => setActiveClip(null)}
-              className="absolute top-3 right-3 text-white hover:text-red-400 transition"
-            >
+              className="absolute top-3 right-3 text-white hover:text-red-400 transition">
               <X size={28} />
             </button>
             <iframe

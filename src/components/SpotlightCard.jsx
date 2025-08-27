@@ -49,8 +49,7 @@ function WhatsPoppin() {
       <div className="absolute top-4 right-4">
         <Link
           to="/cinema-fit"
-          className="flex items-center justify-center w-10 h-10 rounded-full bg-white text-[#1F1B2E] shadow-lg hover:bg-gray-200 transition"
-        >
+          className="flex items-center justify-center w-10 h-10 rounded-full bg-white text-[#1F1B2E] shadow-lg hover:bg-gray-200 transition">
           <ArrowRight size={20} />
         </Link>
       </div>
@@ -76,8 +75,8 @@ function WhatsPoppin() {
           src={`https://www.youtube.com/embed/${trailerKey}`}
           title={`${movie.title} Trailer`}
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-      ></iframe>
+          allowFullScreen>
+        </iframe>
     ) : (
       <div className="w-full h-full flex items-center justify-center text-white rounded-xl shadow-lg bg-[#1F1B2E]">
         Trailer not available

@@ -63,8 +63,7 @@ function CinemaFit() {
         <div className="relative bg-gradient-to-br from-[#1F1B2E] to-[#2A243D] text-white p-6 rounded-xl shadow-lg shadow-black/70 max-w-6xl mx-auto mt-10 border border-[#2A253D] mb-10 flex flex-col md:flex-row gap-6">
           <button
             onClick={() => setSelectedMovie(null)}
-            className="absolute top-4 right-4 text-white hover:text-red-400 transition"
-          >
+            className="absolute top-4 right-4 text-white hover:text-red-400 transition">
             <X size={26} />
           </button>
 
@@ -87,8 +86,8 @@ function CinemaFit() {
                   src={`https://www.youtube.com/embed/${selectedMovie.trailerKey}`}
                   title="Movie Trailer"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
+                  allowFullScreen>
+                </iframe>
               ) : (
                 <div className="w-full h-full flex items-center justify-center text-white rounded-xl shadow-lg bg-[#1F1B2E]">
                   No trailer available.
@@ -114,8 +113,7 @@ function CinemaFit() {
           <div
             key={movie.id}
             className="cursor-pointer transform hover:scale-105 transition"
-            onClick={() => fetchMovieDetails(movie)}
-          >
+            onClick={() => fetchMovieDetails(movie)}>
             <img
               src={`${IMAGE_BASE_URL}${movie.poster_path}`}
               alt={movie.title}
@@ -129,9 +127,8 @@ function CinemaFit() {
         <button
           onClick={() => setPage((prev) => prev + 1)}
           disabled={loading}
-          className="px-6 py-2 bg-[#FF4DA6] text-white rounded-lg shadow-md hover:bg-pink-600 disabled:opacity-50"
-        >
-          {loading ? "Loading..." : "Load More"}
+          className="px-6 py-2 bg-[#FF4DA6] text-white rounded-lg shadow-md hover:bg-pink-600 disabled:opacity-50">
+          {loading ? "Loading..." : "More Vibez"}
         </button>
       </div>
     </div>

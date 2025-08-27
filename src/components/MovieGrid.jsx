@@ -76,8 +76,7 @@ function MovieGrid({ selectedMood, apiKey }) {
   return (
     <div
       ref={gridRef}
-      className="w-full py-12 flex flex-col items-center px-6 bg-[#1F1B2E]"
-    >
+      className="w-full py-12 flex flex-col items-center px-6 bg-[#1F1B2E]">
       <h2 className="text-xl font-bold text-white self-start mb-6 px-15">
         SERVING <span className="text-[#FF4DA6]">FEEL</span>
       </h2>
@@ -89,8 +88,7 @@ function MovieGrid({ selectedMood, apiKey }) {
           <div
             className={`grid grid-cols-2 sm:grid-cols-5 gap-6 transition-opacity duration-700 ${
               fadeIn ? "opacity-100" : "opacity-0"
-            } max-w-[1200px] mx-auto`}
-          >
+            } max-w-[1200px] mx-auto`}>
             {movies.map((movie) => (
               <div key={movie.id} className="flex flex-col items-center p-2">
                 <div className="w-full aspect-[2/3] overflow-hidden flex items-center justify-center rounded-xl">
@@ -115,9 +113,8 @@ function MovieGrid({ selectedMood, apiKey }) {
           {page < maxPages && (
             <button
               onClick={handleLoadMore}
-              className="mt-8 px-6 py-2 bg-[#FF4DA6] text-white rounded-lg hover:bg-pink-600 transition-colors"
-            >
-              Load More
+              className="mt-8 px-6 py-2 bg-[#FF4DA6] text-white rounded-lg hover:bg-pink-600 transition-colors">
+              More Vibez
             </button>
           )}
         </>

@@ -16,6 +16,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/cinema-fit" element={<CinemaFit />} />
         <Route path="/celeb-tea" element={<CelebTea />} />
+        <Route path="/celeb-tea/:id" element={<CelebTea />} />
         <Route path="/watch-list" element={<WatchList />} />
       </Routes>
       <MovieAppFooter />

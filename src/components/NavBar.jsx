@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Search, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import logo from "../assets/logo.png"
-import SearchBox from "./SearchBox";
 function NavBar(){
   const [isOpen, setIsOpen] = useState(false);
   return(
@@ -16,7 +15,6 @@ function NavBar(){
             <Link to="/cinema-fit" className="hover:text-[#FF4DA6] transition">Cinema Fit</Link>
             <Link to="/celeb-tea" className="hover:text-[#FF4DA6] transition">Celeb Tea</Link>
             <Link to="/watch-list" className="hover:text-[#FF4DA6] transition">Watch List</Link>
-            <SearchBox />
           </div>
 
           <div className="hidden md:flex space-x-4">
@@ -37,10 +35,6 @@ function NavBar(){
           <Link to="/celeb-tea" className="block hover:text-[#FF4DA6] transition">Celeb Tea</Link>
           <Link to="/watch-list" className="block hover:text-[#FF4DA6] transition">Watch List</Link>
           
-          <button className="flex items-center space-x-2 hover:text-[#FF4DA6] transition">
-            <Search size={22} /> <span>Search</span>
-          </button>
-
           <div className="flex space-x-3 pt-3 border-t border-white">
             <button className="flex-1 px-4 py-2 rounded-xl bg-black text-white font-semibold hover:bg-[#FF4DA6] transition">
               Sign In

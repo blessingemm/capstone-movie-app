@@ -1,7 +1,7 @@
 import { celebs } from "../data/CelebDetails";
 import { Link } from "react-router-dom";
 
-export default function CelebGrid() {
+function CelebGrid() {
   return (
     <div className="p-15">
       <h2 className="text-xl font-bold text-white mb-8 px-4 sm:px-0">
@@ -27,3 +27,4 @@ export default function CelebGrid() {
     </div>
   );
 }
+export default CelebGrid;

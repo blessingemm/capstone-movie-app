@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function MovieAppFooter() {
+function MovieAppFooter() {
   return (
     <footer className="text-white bg-[#1F1B2E] py-12 px-6 mt-[25px]">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -44,3 +44,4 @@ export default function MovieAppFooter() {
     </footer>
   );
 }
+export default MovieAppFooter;
